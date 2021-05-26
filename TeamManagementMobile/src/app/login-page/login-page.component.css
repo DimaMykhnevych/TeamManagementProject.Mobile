@@ -1,0 +1,36 @@
+Page {
+  background-color: white;
+  font-size: 15;
+}
+TextField {
+  padding: 10;
+  font-size: 13;
+}
+button.-primary {
+  font-size: 18;
+}
+
+StackLayout {
+  margin-left: 30;
+  margin-right: 30;
+  padding-bottom: 15;
+  background-color: white;
+  margin-top: 500px;
+  height: 340;
+}
+image {
+  margin-top: 5;
+  margin-bottom: 20;
+  width: 100;
+}
+button,
+TextField {
+  margin-left: 16;
+  margin-right: 16;
+  margin-bottom: 10;
+}
+.submit-button {
+  background-color: #cb1d00;
+  color: white;
+  margin-top: 20;
+}
