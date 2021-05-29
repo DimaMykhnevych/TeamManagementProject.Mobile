@@ -1,10 +1,14 @@
 <StackLayout class="main">
-<ActionBar>
-  <StackLayout orientation="horizontal">
-    <label class="actionBar" 
-    text="TeamManagement Mobile" fontSize="20" verticalAlignment="center"></label>
-  </StackLayout>
-</ActionBar>
+  <ActionBar>
+    <StackLayout orientation="horizontal">
+      <label
+        class="actionBar"
+        text="TeamManagement Mobile"
+        fontSize="20"
+        verticalAlignment="center"
+      ></label>
+    </StackLayout>
+  </ActionBar>
   <Image
     src="res://logo_login"
     strech="none"
@@ -12,7 +16,7 @@
   ></Image>
   <TextField
     [(ngModel)]="email"
-    required 
+    required
     hint="Email Address"
     keyboardType="email"
     autocorrect="false"
@@ -20,18 +24,42 @@
     #emailModel="ngModel"
     (blur)="onEmailFocus($event)"
   ></TextField>
-  <Label [class.validation]="email.length === 0 && isEmailTouched"
-    *ngIf="email.length === 0 && isEmailTouched" text="Email is required">
-   </Label>
-  <TextField #passwordModel="ngModel" 
-  required [(ngModel)]="password" 
-  hint="Password"
-  (blur)="onPasswordFocus($event)"
-  secure="true"></TextField> 
-   <Label [class.validation]="password.length === 0 && isPasswordTouched"
-    *ngIf="password.length === 0 && isPasswordTouched" text="Password is required">
-   </Label>
-   <Label class="validation" text="Username or password is invalid" *ngIf="isLoginFailed"></Label>
-   <ActivityIndicator [busy]="isLoginProceeding" color="green"></ActivityIndicator>
-  <Button isEnabled="{{ emailModel.valid && passwordModel.valid && !isLoginProceeding}}" class="submit-button" text="Sign in" (tap)="submit()"></Button> 
+  <Label
+    [class.validation]="email.length === 0 && isEmailTouched"
+    *ngIf="email.length === 0 && isEmailTouched"
+    text="Email is required"
+  >
+  </Label>
+  <TextField
+    #passwordModel="ngModel"
+    required
+    [(ngModel)]="password"
+    hint="Password"
+    (blur)="onPasswordFocus($event)"
+    secure="true"
+  ></TextField>
+  <Label
+    [class.validation]="password.length === 0 && isPasswordTouched"
+    *ngIf="password.length === 0 && isPasswordTouched"
+    text="Password is required"
+  >
+  </Label>
+  <Label
+    class="validation"
+    text="Username or password is invalid"
+    *ngIf="isLoginFailed"
+  ></Label>
+  <ActivityIndicator
+    *ngIf="isLoginProceeding"
+    [busy]="true"
+    color="orange"
+  ></ActivityIndicator>
+  <Button
+    isEnabled="{{
+      emailModel.valid && passwordModel.valid && !isLoginProceeding
+    }}"
+    class="submit-button"
+    text="Sign in"
+    (tap)="submit()"
+  ></Button>
 </StackLayout>
