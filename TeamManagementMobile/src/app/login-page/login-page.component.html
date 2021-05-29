@@ -1,4 +1,10 @@
 <StackLayout class="main">
+<ActionBar>
+  <StackLayout orientation="horizontal">
+    <label class="actionBar" 
+    text="TeamManagement Mobile" fontSize="20" verticalAlignment="center"></label>
+  </StackLayout>
+</ActionBar>
   <Image
     src="res://logo_login"
     strech="none"
@@ -6,11 +12,26 @@
   ></Image>
   <TextField
     [(ngModel)]="email"
+    required 
     hint="Email Address"
     keyboardType="email"
     autocorrect="false"
     autocapitalizationType="none"
+    #emailModel="ngModel"
+    (blur)="onEmailFocus($event)"
   ></TextField>
-  <TextField [(ngModel)]="password" hint="Password" secure="true"></TextField>
-  <Button class="submit-button" text="Sign in" (tap)="submit()"></Button>
+  <Label [class.validation]="email.length === 0 && isEmailTouched"
+    *ngIf="email.length === 0 && isEmailTouched" text="Email is required">
+   </Label>
+  <TextField #passwordModel="ngModel" 
+  required [(ngModel)]="password" 
+  hint="Password"
+  (blur)="onPasswordFocus($event)"
+  secure="true"></TextField> 
+   <Label [class.validation]="password.length === 0 && isPasswordTouched"
+    *ngIf="password.length === 0 && isPasswordTouched" text="Password is required">
+   </Label>
+   <Label class="validation" text="Username or password is invalid" *ngIf="isLoginFailed"></Label>
+   <ActivityIndicator [busy]="isLoginProceeding" color="green"></ActivityIndicator>
+  <Button isEnabled="{{ emailModel.valid && passwordModel.valid && !isLoginProceeding}}" class="submit-button" text="Sign in" (tap)="submit()"></Button> 
 </StackLayout>

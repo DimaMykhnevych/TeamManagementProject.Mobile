@@ -1,27 +1,66 @@
-import { HttpClient } from "@angular/common/http";
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
+import {AuthSignInModel} from "../models/auth-signin-model";
+import { RouterExtensions } from "@nativescript/angular";
+import { LoginService } from "../services/login.service";
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserModel } from '../models/user-model';
 
 @Component({
-  selector: "ns-login",
+  selector: "ns-login", 
   templateUrl: "./login-page.component.html",
   styleUrls: ["./login-page.component.css"]
 })
-export class LoginPageComponent {
+export class LoginPageComponent{
   public email = "";
   public password = "";
+  public isLoginFailed: boolean = false;
+  public isEmailTouched: boolean = false;
+  public isPasswordTouched: boolean = false;
+  public userInfo: UserModel;
+  public isLoginProceeding: boolean = false;
 
-  constructor(private _http: HttpClient) {}
-  public submit() {
-    this.getInfo();
+  constructor(private routerExtensions: RouterExtensions,
+              private loginService: LoginService,) {
+                this.getUserInfo();
+    }
+
+  public submit() { 
+    this.login(); 
   }
 
-  public getInfo(): void {
-    console.log("HERE");
-    this._http
-      .get<any>(`http://10.0.2.2:44372/v1/employee`, {})
-      .subscribe(resp => {
-        console.log("done");
-        console.log(resp);
-      });
+  public login(): void {
+    this.isLoginProceeding = true;
+    const signInModel:AuthSignInModel = {
+       userName: this.email,
+       password: this.password,
+    };
+    this.loginService.login(signInModel).subscribe((resp) => {
+       if(resp.succeeded){
+          this.routerExtensions.navigate(["/articles"]);
+          this.isLoginFailed = false;
+       }else{
+         this.isLoginFailed = true;
+       }
+       this.isLoginProceeding = false;
+     })
   }
+
+  public getUserInfo(): void{
+    this.loginService.getUserInfo().subscribe((resp) => {
+      if(resp?.id){
+        this.userInfo = resp;
+        this.routerExtensions.navigate(["/articles"]);
+      }
+    })
+  }
+
+  public onEmailFocus(event): void{
+    this.isEmailTouched = true;
+    this.isLoginFailed = false;
+  }
+  public onPasswordFocus(event): void{
+    this.isPasswordTouched = true;
+    this.isLoginFailed = false;
+  }
+
 }

@@ -1,7 +1,4 @@
-Page {
-  background-color: white;
-  font-size: 15;
-}
+@import url('https://fonts.googleapis.com/css2?family=Mate+SC&display=swap');
 TextField {
   padding: 10;
   font-size: 13;
@@ -9,13 +6,14 @@ TextField {
 button.-primary {
   font-size: 18;
 }
-
-StackLayout {
+.actionBar{
+  font-family: 'Mate SC', serif;
+}
+.main {
   margin-left: 30;
   margin-right: 30;
   padding-bottom: 15;
   background-color: white;
-  margin-top: 500px;
   height: 340;
 }
 image {
@@ -33,4 +31,20 @@ TextField {
   background-color: #cb1d00;
   color: white;
   margin-top: 20;
+}
+
+.ng-valid[required] {
+    border-left-color: #42A948; 
+    border-left-width: 3;
+}
+.ng-invalid {
+    border-left-color: #a94442; 
+    border-left-width: 3;
+}
+.validation {
+    background-color: #a94442;
+    color: #ffffff;
+    margin: 5;
+    padding: 8;
+    border-radius: 10;
 }
