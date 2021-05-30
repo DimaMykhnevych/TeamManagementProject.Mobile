@@ -1,8 +1,29 @@
-<StackLayout> 
-<TextField
-    hint="Email Address"
-    keyboardType="email"
-    autocorrect="false"
-    autocapitalizationType="none"
-  ></TextField>
+<StackLayout class="main">
+  <ActionBar>
+    <StackLayout orientation="horizontal">
+      <label
+        class="actionBar"
+        text="Welcome, {{ userInfo?.firstName }} {{ userInfo?.lastName }}!"
+        fontSize="20"
+        verticalAlignment="center"
+      ></label>
+    </StackLayout>
+  </ActionBar>
+</StackLayout>
+
+<StackLayout>
+  <label text="Articles" class="header"></label>
+  <ListView height="100%" [items]="items">
+    <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
+      <FlexboxLayout
+        [class.odd]="odd"
+        [class.even]="even"
+        [nsRouterLink]="['/article', item?.id]"
+        justifyContent="center"
+      >
+        <Label [text]="i + 1"></Label>
+        <Label [text]="item?.name"></Label>
+      </FlexboxLayout>
+    </ng-template>
+  </ListView>
 </StackLayout>
