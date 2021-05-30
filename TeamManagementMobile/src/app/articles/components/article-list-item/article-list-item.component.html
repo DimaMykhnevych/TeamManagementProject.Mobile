@@ -3,10 +3,19 @@
     <StackLayout orientation="horizontal">
       <label
         class="actionBar"
-        text="Welcome {{ id }}"
+        text="{{ article.name }}"
         fontSize="20"
         verticalAlignment="center"
       ></label>
     </StackLayout>
   </ActionBar>
+  <StackLayout class="wrapper">
+    <HtmlView class="content" html="{{ article.content }}"></HtmlView>
+    <FlexboxLayout justifyContent="space-around" class="info">
+      <label text="Written By: {{ article.publisherFullName }}"></label>
+      <label
+        text="Date of publishing: {{ article.dateOfPublishing | date }}"
+      ></label>
+    </FlexboxLayout>
+  </StackLayout>
 </StackLayout>

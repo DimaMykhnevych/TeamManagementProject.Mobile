@@ -1,0 +1,8 @@
+export class Article {
+  public name: string;
+  public content: string;
+  public status: string;
+  public tagId: string;
+  public publisherFullName: string;
+  public dateOfPublishing: Date;
+}
